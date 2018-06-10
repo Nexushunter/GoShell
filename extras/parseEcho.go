@@ -1,6 +1,8 @@
 package extras
 
-import "strings"
+import (
+	"strings"
+)
 
 // @author  Hunter Breathat
 // @License Copyright (R) 2018 Hunter Breathat
@@ -11,10 +13,14 @@ import "strings"
 // Precondition: Echo was the command being passed
 // Post-condition: Echo is parsed
 //---------------------------------------------------------------------------\\
-func ParseEcho(command string) []string {
+func ParseEcho(command string) (commands []string) {
 	if strings.Contains(command, "sudo") {
-		return strings.SplitN(command, " ", 2)
+		commands = strings.SplitN(command, " ", 3)
+		//fmt.Println(commands[2])
+		return commands
 	} else {
-		return strings.SplitN(command, " ", 1)
+		commands = strings.SplitN(command, " ", 2)
+		//fmt.Println(commands[1])
+		return commands
 	}
 }

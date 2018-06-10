@@ -1,6 +1,8 @@
 package extras
 
-import "os"
+import (
+	"os"
+)
 
 // @author  Hunter Breathat
 // @License Copyright (R) 2018 Hunter Breathat
@@ -13,7 +15,7 @@ import "os"
 //---------------------------------------------------------------------------\\
 func Leave(command string) {
 	exit := "exit"
-	kill := "^D" //Currently Bugged....TODO: Fix
+	kill := string(0x4)
 	if command == exit || command == kill {
 		os.Exit(0)
 	}

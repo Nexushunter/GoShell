@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"github.com/nexishunter/GoShell/cmnds"
 	"github.com/nexishunter/GoShell/extras"
@@ -29,13 +30,12 @@ var (
 // Post-condition: Runs user commands/input if available
 //---------------------------------------------------------------------------\\
 func main() {
-	var command string                    // To be user input
-	var input = bufio.NewReader(os.Stdin) // Takes user input
-	var newDir string                     // New Directory
-	var err error                         // Generic error
-	var cmd *os.Process                   // The process of the command
+	var command string  // To be user input
+	var newDir string   // New Directory
+	var err error       // Generic error
+	var cmd *os.Process // The process of the command
 	var commands []string
-
+	var input = bufio.NewScanner(os.Stdin) // Takes user input
 	for {
 		var currDir string
 
@@ -51,9 +51,9 @@ func main() {
 
 		fmt.Printf("%s@NexisOs: %s> ", currUser.Username,
 			strings.Replace(currDir, currUser.HomeDir, "~", -1)) // Main line in terminal
-
-		command, _ = input.ReadString('\n')         // Takes user input checking for \n
-		command = strings.TrimSuffix(command, "\n") // Removes trailing \n from the user input
+		input.Scan()           //stores user input
+		command = input.Text() // Stores user input
+		extras.Leave(command)  // Check if command is exit or ^D
 
 		if strings.Contains(command, "echo") {
 			commands = extras.ParseEcho(command)
@@ -72,6 +72,7 @@ func main() {
 				newDir, err = cmnds.CD(commands[2])
 				extras.PrintErr(err)
 			}
+
 		} else if commands[0] == "echo" ||
 			(commands[0] == "sudo" && commands[1] == "echo") {
 
@@ -101,6 +102,12 @@ func main() {
 // Post-condition: Command is now runnning
 //---------------------------------------------------------------------------\\
 func execute(command []string) (p *os.Process, err error) {
+	binary, err := exec.LookPath(command[0])
+	if binary == "" {
+		// Reports invalid commands/input
+		return nil, errors.New(fmt.Sprintf("  %s : command not found",
+			command[0]))
+	}
 	if binary, err := exec.LookPath(command[0]); err == nil {
 		var attributes os.ProcAttr // Set up Process Attributes
 		attributes.Files = []*os.File{
