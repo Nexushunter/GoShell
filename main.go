@@ -21,7 +21,8 @@ import (
 	Thus allowing for scripting using go as well as bash etc.*/
 
 var (
-	currUser, _ = user.Current()
+	currUser, _ = user.Current() // Current User
+	newDir      string           // New Directory
 )
 
 //---------------------------------------------------------------------------\\
@@ -30,12 +31,13 @@ var (
 // Post-condition: Runs user commands/input if available
 //---------------------------------------------------------------------------\\
 func main() {
-	var command string  // To be user input
-	var newDir string   // New Directory
+	var command string // To be user input
+	//var newDir string
 	var err error       // Generic error
 	var cmd *os.Process // The process of the command
 	var commands []string
 	var input = bufio.NewScanner(os.Stdin) // Takes user input
+
 	for {
 		var currDir string
 
@@ -51,36 +53,65 @@ func main() {
 
 		fmt.Printf("%s@NexisOs: %s> ", currUser.Username,
 			strings.Replace(currDir, currUser.HomeDir, "~", -1)) // Main line in terminal
+
 		input.Scan()           //stores user input
 		command = input.Text() // Stores user input
-		extras.Leave(command)  // Check if command is exit or ^D
+
+		extras.Leave(command) // Check if command is exit or ^D
 
 		if strings.Contains(command, "echo") {
 			commands = extras.ParseEcho(command)
 		} else {
 			commands = strings.Split(command, " ") // Separates args from command/application
 		}
+
 		extras.Leave(commands[0]) // Check if command is exit or ^D
+		command = commands[0]     // Set command to current command for easy checking
 
-		if commands[0] == "cd" || // Checking for sudo
-			(commands[0] == "sudo" && commands[1] == "cd") {
+		if sudoReq(command) {
 
-			if commands[1] != "cd" && commands[0] != "sudo" {
+			command = commands[1]
+			if command == "cd" {
+				newDir, err = cmnds.CD(command)
+				extras.PrintErr(err)
+			} else if command == "echo" {
+				cmnds.Echo(commands[2])
+			} else {
+				cmd, err = execute(commands)
+
+				if cmd != nil { // Active command/process
+					cmd.Wait() // Wait for command to finish
+					cmd.Kill() // Terminate the program after completion
+				}
+
+				extras.PrintErr(err)
+			}
+
+		} else {
+
+			if command == "cd" {
 				newDir, err = cmnds.CD(commands[1])
 				extras.PrintErr(err)
-			} else {
-				newDir, err = cmnds.CD(commands[2])
-				extras.PrintErr(err)
-			}
-
-		} else if commands[0] == "echo" ||
-			(commands[0] == "sudo" && commands[1] == "echo") {
-
-			if commands[0] != "sudo" {
+			} else if command == "echo" {
 				cmnds.Echo(commands[1])
 			} else {
-				cmnds.Echo(commands[2])
+				cmd, err = execute(commands)
+
+				if cmd != nil { // Active command/process
+					cmd.Wait() // Wait for command to finish
+					cmd.Kill() // Terminate the program after completion
+				}
+
+				extras.PrintErr(err)
 			}
+		}
+		/*			cd:
+				newDir, err = cmnds.CD(commands[2])
+				extras.PrintErr(err)
+
+			echo:
+				cmnds.Echo(commands[2])
+
 
 		} else {
 
@@ -92,7 +123,7 @@ func main() {
 			}
 
 			extras.PrintErr(err)
-		}
+		}*/
 	}
 }
 
@@ -119,4 +150,17 @@ func execute(command []string) (p *os.Process, err error) {
 		}
 	}
 	return nil, err // Fail and Error reporting
+}
+
+//---------------------------Check for sudo----------------------------------\\
+// Checks for sudo in the command args
+// Precondition: User must input something
+// Post-condition: Verifies if sudo is present
+//---------------------------------------------------------------------------\\
+func sudoReq(command string) bool {
+	if command == "sudo" {
+		return true
+	} else {
+		return false
+	}
 }

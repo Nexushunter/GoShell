@@ -1,0 +1,61 @@
+https://www.computerhope.com/unix/bash/index.htm
+^^^ Above contained all of the built-ins....
+Builtin command 	Inherited 	Special 	Description
+: (a colon) 		Yes 		Yes 		Returns an exit status of zero.
+. (a period) 		Yes 		Yes 		The same as source. Takes a file name as an argument, and executes the commands found in that file.
+[ 			        Yes 				    The same as test. Evaluate a conditional expression, and a return a value of true or false.
+alias 							            Define, or display, the shell's command aliases.
+bg 							                Resume a suspended job so that it runs in the background.
+bind 							            Define, or display, the shell's key and function bindings.
+break 			    Yes 		Yes 		Exit from a for, while, or select loop.
+builtin 						            Run a builtin command, even if there is a bash function with the same name.
+caller 							            Return the context (execution frame) of a running subroutine. Useful for performing examining the stack when debugging a bash script.
+cd 			        Yes 			    	Change the working directory.
+command 				            		Run an external or builtin command, even if there is a bash function with the same name.
+compgen 					            	Generate auto-completion matches for the specified command.
+complete 					            	Specify how arguments should be auto-completed.
+compopt 					            	Modify or display options for auto-completion.
+continue 		    Yes	    	Yes 		Skip to the next, or to another, iteration in a for, while, until, or select loop.
+declare 					            	The same as typeset. Declare, display, or assign attributes to variables.
+dirs 					            		Display the shell's directory stack, which contains remembered directories.
+disown 					            		Remove specified jobs from the current shell.
+echo 					            		Write a string to the standard output.
+enable 					            		Enable or disable builtin shell commands. Useful when other commands on the system share a builtin command name.
+eval 			    Yes 		Yes 		Evaluate arguments and execute them as a command.
+exec 		    	Yes 		Yes 		Execute a command which replaces the current shell, without creating a new process.
+exit 		    	Yes 		Yes 		Exit the shell with an optional numeric exit status.
+export 		    	Yes 		Yes 		Designate that shell variables or functions should be passed to child processes.
+fc 			                				Edit, or execute a range of, commands from the history list.
+fg 			                				Move a job to the foreground, making it the shell's current job.
+getopts 		    Yes 				    Parse arguments passed to a shell script.
+hash 			    Yes 		    		Remember (or re-discover) the full path name of commands.
+help 				            			Display brief help information about what the shell builtin commands are, and how to use them.
+history 			               			Display or modify the history list.
+jobs 				            			Display the status of all jobs.
+kill 				            			Send a signal to a process.
+let 				            			Evaluate arithmetic expressions.
+local 				            			Declare a variable with local scope in a bash function.
+logout 				            			Exit a login shell with an optional exit status.
+mapfile 		            				Read lines from a file or from standard input, and map each line to an element in an array.
+popd 				            			Remove directories from the shell's directory stack.
+printf 				            			Print formatted text to standard output.
+pushd 				            			Add directories to the shell's directory stack.
+pwd 			    Yes 				    Print the absolute path name of the current working directory.
+read 						            	Read a line from a file or from standard input, split it into words, and assign each word to a variable.
+readarray			 		            	Same as mapfile: read lines from a file or stdin, and assign each line to an array element.
+readonly 		    Yes 		Yes 		Designate function or variables as read-only, so they cannot be changed.
+return 			    Yes 		Yes 		Exit a bash function and return a value.
+set 			    Yes 		Yes 		Modify the options of the current shell, changing its behavior. Display the names and values of shell functions and variables.
+shift 			    Yes 		Yes 		Shift the positional parameters of the current command to the left.
+shopt 							            Modify certain bash shell options.
+source 							            Same as . (a period). Read commands from a file, and execute them.
+test 			    Yes 				    Evaluate a conditional expression, and a return a value of true or false.
+times 			    Yes 				    Display the user and system CPU times of the shell process.
+trap 			    Yes 		Yes 		Specify a signal trap, to be executed when the shell receives a specific signal.
+type 							            Determine how the shell will interpret a name: as an alias, function, builtin, file, or keyword.
+typeset 	            					The same as declare. Declare, display, or assign attributes to variables.
+ulimit 			            				Assign limits to the resources available to processes started by the shell.
+umask 			    Yes 			    	Set the file creation mask for files created by the shell.
+unalias 		            				Remove aliases.
+unset 			    Yes 		Yes 		Remove variable or function names.
+wait 			    Yes 				    Wait for a process to exit, then display its return value.

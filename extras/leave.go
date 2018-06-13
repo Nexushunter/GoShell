@@ -6,7 +6,7 @@ import (
 
 // @author  Hunter Breathat
 // @License Copyright (R) 2018 Hunter Breathat
-// @repo	NexisHunter/GoShell/extras
+// @repo	NexisHunter/GoShell/extras/
 
 //-------------Exit ---------------------------------------------------------\\
 // Simple exit strategy

@@ -6,7 +6,7 @@ import (
 
 // @author  Hunter Breathat
 // @License Copyright (R) 2018 Hunter Breathat
-// @repo	NexisHunter/GoShell/extras
+// @repo	NexisHunter/GoShell/extras/
 
 //-------------------------Custom Echo Parsing-------------------------------\\
 // Parses Echo command based on how many args were present ie contained sudo
@@ -16,11 +16,9 @@ import (
 func ParseEcho(command string) (commands []string) {
 	if strings.Contains(command, "sudo") {
 		commands = strings.SplitN(command, " ", 3)
-		//fmt.Println(commands[2])
 		return commands
 	} else {
 		commands = strings.SplitN(command, " ", 2)
-		//fmt.Println(commands[1])
 		return commands
 	}
 }
