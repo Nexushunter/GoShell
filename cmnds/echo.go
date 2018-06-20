@@ -10,7 +10,7 @@ import (
 
 // @author Hunter Breathat
 // @License Copyright (R) 2018 Hunter Breathat
-// @repo	NexisHunter/GoShell/cmnds/
+// @repo	{github,gitlab}.com/NexisHunter/GoShell/cmnds/
 
 //-----------------------------------Echo------------------------------------\\
 // Prints input or Environment variable or allows for appending to files

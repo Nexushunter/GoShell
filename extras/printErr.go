@@ -4,7 +4,7 @@ import "fmt"
 
 // @author  Hunter Breathat
 // @License Copyright (R) 2018 Hunter Breathat
-// @repo	NexisHunter/GoShell/extras
+// @repo	{github,gitlab}.com/NexisHunter/GoShell/extras/
 
 //--------------Error Checking-----------------------------------------------\\
 // Simply checks and Prints the error

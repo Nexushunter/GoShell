@@ -9,7 +9,7 @@ import (
 
 // @author Hunter Breathat
 // @License Copyright (R) 2018 Hunter Breathat
-// @repo	NexisHunter/GoShell/cmnds/
+// @repo	{github,gitlab}.com/NexisHunter/GoShell/cmnds/
 
 //---------------------------Cat--------------------------------------------\\
 // Displays contents of file to terminal

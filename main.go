@@ -14,7 +14,7 @@ import (
 
 // @author Hunter Breathat
 // @License Copyright (R) 2018 Hunter Breathat
-// @repo	NexisHunter/GoShell
+// @repo	{github,gitlab}.com/NexisHunter/GoShell
 
 /*	Objective: To create a go based shell for unix based oses
 	Currently being tested on Debian based OSes ie. Ubuntu 18.04, Kali Linux
@@ -31,8 +31,7 @@ var (
 // Post-condition: Runs user commands/input if available
 //---------------------------------------------------------------------------\\
 func main() {
-	var command string // To be user input
-	//var newDir string
+	var command string  // To be user input
 	var err error       // Generic error
 	var cmd *os.Process // The process of the command
 	var commands []string
@@ -105,25 +104,6 @@ func main() {
 				extras.PrintErr(err)
 			}
 		}
-		/*			cd:
-				newDir, err = cmnds.CD(commands[2])
-				extras.PrintErr(err)
-
-			echo:
-				cmnds.Echo(commands[2])
-
-
-		} else {
-
-			cmd, err = execute(commands)
-
-			if cmd != nil { // Active command/process
-				cmd.Wait() // Wait for command to finish
-				cmd.Kill() // Terminate the program after completion
-			}
-
-			extras.PrintErr(err)
-		}*/
 	}
 }
 

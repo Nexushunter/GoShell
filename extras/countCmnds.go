@@ -25,15 +25,13 @@ func CountCmnds(command string) ([]string, int, error) {
 
 	for i := 0; i < len(command); i++ {
 
-		if command[i] == '&' {
+		// Makes it easy for identifying a separate command
+		separator := string(command[i] + command[i+1])
+		if separator == "&&" {
 
-			if command[i+1] == '&' {
-
-				// Checks for the && and adds 1 to count since the shell
-				// command cannot end with && etc
-				size++
-			}
-
+			// Checks for the && and adds 1 to count since the shell
+			// command cannot end with && etc
+			size++
 		}
 
 	}
@@ -42,6 +40,6 @@ func CountCmnds(command string) ([]string, int, error) {
 }
 
 func separateCmnds(command string, size int) (commands []string) {
-	commands = strings.Split(command, "&&")
+	commands = strings.SplitN(command, "&&", size)
 	return commands
 }

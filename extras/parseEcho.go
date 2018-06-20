@@ -6,7 +6,7 @@ import (
 
 // @author  Hunter Breathat
 // @License Copyright (R) 2018 Hunter Breathat
-// @repo	NexisHunter/GoShell/extras/
+// @repo	{github,gitlab}.com/NexisHunter/GoShell/extras/
 
 //-------------------------Custom Echo Parsing-------------------------------\\
 // Parses Echo command based on how many args were present ie contained sudo
