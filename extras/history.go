@@ -1,5 +1,7 @@
 package extras
 
+import "errors"
+
 // @author  Hunter Breathat
 // @License Copyright (R) 2018 Hunter Breathat
 // @repo	{github,gitlab}.com/NexisHunter/GoShell/extras/
@@ -12,6 +14,9 @@ func LoadHistory() (history []string) {
 }
 
 func SaveHistory(history []string) (err error) {
+	if emptyHistory(history) {
+		return errors.New("cannot save empty history")
+	}
 	return nil
 }
 

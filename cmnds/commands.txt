@@ -1,5 +1,5 @@
 https://www.computerhope.com/unix/bash/index.htm
-^^^ Above contained all of the built-ins....
+^^^ Above contained all of the built-ins.... That I could think of.
 Builtin command 	Inherited 	Special 	Description
 : (a colon) 		Yes 		Yes 		Returns an exit status of zero.
 . (a period) 		Yes 		Yes 		The same as source. Takes a file name as an argument, and executes the commands found in that file.
