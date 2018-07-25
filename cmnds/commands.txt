@@ -10,7 +10,7 @@ bind 							            Define, or display, the shell's key and function binding
 break 			    Yes 		Yes 		Exit from a for, while, or select loop.
 builtin 						            Run a builtin command, even if there is a bash function with the same name.
 caller 							            Return the context (execution frame) of a running subroutine. Useful for performing examining the stack when debugging a bash script.
-cd 			        Yes 			    	Change the working directory.
+\/cd 			        Yes 			    	Change the working directory.
 command 				            		Run an external or builtin command, even if there is a bash function with the same name.
 compgen 					            	Generate auto-completion matches for the specified command.
 complete 					            	Specify how arguments should be auto-completed.
@@ -19,18 +19,18 @@ continue 		    Yes	    	Yes 		Skip to the next, or to another, iteration in a fo
 declare 					            	The same as typeset. Declare, display, or assign attributes to variables.
 dirs 					            		Display the shell's directory stack, which contains remembered directories.
 disown 					            		Remove specified jobs from the current shell.
-echo 					            		Write a string to the standard output.
+\/echo 					            		Write a string to the standard output.
 enable 					            		Enable or disable builtin shell commands. Useful when other commands on the system share a builtin command name.
 eval 			    Yes 		Yes 		Evaluate arguments and execute them as a command.
 exec 		    	Yes 		Yes 		Execute a command which replaces the current shell, without creating a new process.
-exit 		    	Yes 		Yes 		Exit the shell with an optional numeric exit status.
+\/exit 		    	Yes 		Yes 		Exit the shell with an optional numeric exit status.
 export 		    	Yes 		Yes 		Designate that shell variables or functions should be passed to child processes.
 fc 			                				Edit, or execute a range of, commands from the history list.
 fg 			                				Move a job to the foreground, making it the shell's current job.
 getopts 		    Yes 				    Parse arguments passed to a shell script.
 hash 			    Yes 		    		Remember (or re-discover) the full path name of commands.
 help 				            			Display brief help information about what the shell builtin commands are, and how to use them.
-history 			               			Display or modify the history list.
+\/history 			               			Display or modify the history list.
 jobs 				            			Display the status of all jobs.
 kill 				            			Send a signal to a process.
 let 				            			Evaluate arithmetic expressions.

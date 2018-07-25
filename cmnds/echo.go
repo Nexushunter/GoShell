@@ -14,7 +14,7 @@ import (
 
 //-----------------------------------Echo------------------------------------\\
 // Prints input or Environment variable or allows for appending to files
-//
+// Precondition: Not applicable
 // Post-condition: Either appends to file or prints input/variable
 //---------------------------------------------------------------------------\\
 func Echo(command string) {
@@ -23,6 +23,7 @@ func Echo(command string) {
 	if strings.Contains(command, "$") {
 		s := strings.TrimPrefix(command, "$")
 		fmt.Println(os.Getenv(s))
+
 	} else if strings.Contains(command, ">>") {
 		parts := strings.Split(command, ">>")
 		input := parts[0] // Whats is being appended
@@ -31,7 +32,9 @@ func Echo(command string) {
 		// ----> Prevents errors until fileIO is added
 		fmt.Println(input + " " + fName)
 		extras.PrintErr(err)
+
 	} else {
+
 		fmt.Println(command)
 	}
 }

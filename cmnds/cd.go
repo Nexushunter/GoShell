@@ -25,16 +25,20 @@ func CD(directory string) (fP string, err error) {
 	if directory == root {
 		err := os.Chdir(root) // cd into root
 		return updateDir(fP, err)
+
 	} else if directory == home {
 		err := os.Chdir(currUser.HomeDir) // cd $HOME
 		return updateDir(fP, err)
+
 	} else if len(directory) > 1 && strings.Contains(directory, "~") {
 		directory = strings.Replace(directory, "~",
 			currUser.HomeDir, -1) // Allows for ~ usage
 
 		err := os.Chdir(directory)
 		return updateDir(fP, err)
+
 	} else {
+
 	Outer:
 		for i := 0; i < len(quickAccess); i++ {
 			if strings.Contains(directory, quickAccess[i]) &&
@@ -45,6 +49,7 @@ func CD(directory string) (fP string, err error) {
 				break Outer
 			}
 		}
+
 		err := os.Chdir(directory)
 		return updateDir(fP, err)
 	}
@@ -52,9 +57,11 @@ func CD(directory string) (fP string, err error) {
 
 // func CD helper method
 func updateDir(fP string, err error) (filePath string, nah error) {
+
 	if err != nil {
 		fP, _ = os.Getwd() // Doesn't change working directory
 		return fP, err     // Reports the error
+
 	} else {
 		fP, _ = os.Getwd() // Get the new working directory
 		return fP, nil     // No error

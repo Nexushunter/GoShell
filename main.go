@@ -57,6 +57,7 @@ func main() {
 		command = input.Text() // Stores user input
 
 		extras.Leave(command) // Check if command is exit or ^D
+		cmnds.SaveHistory(command) // Save the command to the history file
 
 		if strings.Contains(command, "echo") {
 			commands = extras.ParseEcho(command)
@@ -64,7 +65,7 @@ func main() {
 			commands = strings.Split(command, " ") // Separates args from command/application
 		}
 
-		extras.Leave(commands[0]) // Check if command is exit or ^D
+		//extras.Leave(commands[0]) // Check if command is exit or ^D(EOF)
 		command = commands[0]     // Set command to current command for easy checking
 
 		if sudoReq(command) {
@@ -110,7 +111,7 @@ func main() {
 //--------------------------Launch Process-----------------------------------\\
 //	Os agnostic approach to launching a process
 // Precondition: No currently running command
-// Post-condition: Command is now runnning
+// Post-condition: Command is now running
 //---------------------------------------------------------------------------\\
 func execute(command []string) (p *os.Process, err error) {
 	binary, err := exec.LookPath(command[0])

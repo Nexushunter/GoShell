@@ -20,7 +20,7 @@ func CountCmnds(command string) ([]string, int, error) {
 	var commands []string
 
 	if command == "" {
-		return nil, 0, errors.New("invalid amount of commands")
+		return nil, 0, errors.New("empty command inputted")
 	}
 
 	for i := 0; i < len(command); i++ {
