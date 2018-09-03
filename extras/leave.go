@@ -2,6 +2,7 @@ package extras
 
 import (
 	"os"
+	"fmt"
 )
 
 // @author  Hunter Breathat
@@ -15,11 +16,13 @@ import (
 //---------------------------------------------------------------------------\\
 func Leave(command string) {
 	exit := "exit"
-	kill := string(0x4)
 	switch command {
-	case kill:
-		fallthrough
 	case exit:
 		os.Exit(0)
 	}
+}
+
+func LeaveEOF(){
+	fmt.Println("Exiting....")
+	Leave("exit")
 }

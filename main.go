@@ -2,14 +2,15 @@ package main
 
 import (
 	"bufio"
-	"errors"
 	"fmt"
 	"./cmnds"
 	"./extras"
 	"os"
-	"os/exec"
 	"os/user"
 	"strings"
+	"io"
+	"os/exec"
+	"errors"
 )
 
 // @author Hunter Breathat
@@ -50,7 +51,7 @@ func main() {
 				currDir = newDir 						// Otherwise new Dir
 		}
 
-		switch currDir{
+		switch currDir {
 			case currUser.HomeDir:
 				currDir =  strings.Replace(currDir,currUser.HomeDir,"~",-1)
 		}
@@ -60,6 +61,18 @@ func main() {
 
 		input.Scan()           //stores user input
 		command = input.Text() // Stores user input
+
+		switch command {
+		case " ":
+			break
+		case "":
+			if err := input.Err(); err == nil && len(command) == 0 {
+				if err != io.ErrUnexpectedEOF {
+					// EOF support
+					extras.LeaveEOF()
+				}
+			}
+		}
 
 		extras.Leave(command) // Check if command is exit or ^D
 		//cmnds.SaveHistory(command) // Save the command to the history file
@@ -94,12 +107,11 @@ func main() {
 
 				extras.PrintErr(err)
 			}
-
 		case "cd":
-			newDir, err = cmnds.CD(commands[2])
+			newDir, err = cmnds.CD(commands[1])
 			extras.PrintErr(err)
 		case "echo":
-			cmnds.Echo(commands[2])
+			cmnds.Echo(commands[1])
 		default:
 			cmd, err = execute(commands)
 
@@ -108,7 +120,12 @@ func main() {
 				cmd.Kill() // Terminate the program after completion
 			}
 
-			extras.PrintErr(err)
+			switch err{
+			case nil:
+				break
+			default:
+				extras.PrintErr(err)
+			}
 		}
 
 	}
@@ -120,21 +137,35 @@ func main() {
 // 	Post-condition: Command is now running
 //---------------------------------------------------------------------------\\
 func execute(command []string) (p *os.Process, err error) {
-	binary, err := exec.LookPath(command[0])
-	if binary == "" {
-		// Reports invalid commands/input
-		return nil, errors.New(fmt.Sprintf("  %s : command not found",
-			command[0]))
-	}
-	if binary, err := exec.LookPath(command[0]); err == nil {
-		var attributes os.ProcAttr // Set up Process Attributes
-		attributes.Files = []*os.File{
-			os.Stdin, os.Stdout, os.Stderr} // Setting IO and Error
-		p, err := os.StartProcess(binary,
-			command, &attributes) // Fork and execute command
-		if err == nil {
-			return p, nil // Successful execution
+	switch command[0]{
+	case "":
+		return nil,nil
+	default:
+		binary, err := exec.LookPath(command[0])
+
+		switch binary{
+		case "":
+			// Reports invalid commands/input
+			return nil, errors.New(fmt.Sprintf("  %s : command not found",
+				command[0]))
+		default:
+
+			switch err{
+			case nil:
+				var attributes os.ProcAttr // Set up Process Attributes
+				attributes.Files = []*os.File{
+				os.Stdin, os.Stdout, os.Stderr} // Setting IO and Error
+				p, err := os.StartProcess(binary,
+				command, &attributes) // Fork and execute command
+
+				switch err {
+				case nil:
+					return p, nil // Successful execution
+				default:
+					return nil, err // Fail and Error reporting
+				}
+			}
 		}
 	}
-	return nil, err // Fail and Error reporting
+	return
 }
