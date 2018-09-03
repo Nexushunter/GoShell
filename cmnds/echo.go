@@ -3,7 +3,7 @@ package cmnds
 import (
 	"errors"
 	"fmt"
-	"github.com/nexishunter/GoShell/extras"
+	"../extras"
 	"os"
 	"strings"
 )

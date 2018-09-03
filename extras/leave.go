@@ -16,7 +16,10 @@ import (
 func Leave(command string) {
 	exit := "exit"
 	kill := string(0x4)
-	if command == exit || command == kill {
+	switch command {
+	case kill:
+		fallthrough
+	case exit:
 		os.Exit(0)
 	}
 }
