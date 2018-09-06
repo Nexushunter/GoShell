@@ -6,7 +6,7 @@ import (
 )
 
 // @author  Hunter Breathat
-// @License Copyright (R) 2018 Hunter Breathat
+// @License BSD 3-Clause License Copyright (c) 2018, Hunter Breathat All rights reserved.
 // @repo	{github,gitlab}.com/NexisHunter/GoShell/extras/
 
 //----------------------------Counts Total Commands--------------------------\\

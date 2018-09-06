@@ -8,13 +8,12 @@ import (
 	"os"
 	"os/user"
 	"strings"
-	"io"
 	"os/exec"
 	"errors"
 )
 
 // @author Hunter Breathat
-// @License Copyright (R) 2018 Hunter Breathat
+// @License BSD 3-Clause License Copyright (c) 2018, Hunter Breathat All rights reserved.
 // @repo	{github,gitlab}.com/NexisHunter/GoShell
 
 /*	Objective: To create a go based shell for unix based oses
@@ -59,22 +58,18 @@ func main() {
 		fmt.Printf("%s@NexisOs: %s> ", currUser.Username,
 			strings.Replace(currDir, currUser.HomeDir, "~", -1)) // Main line in terminal
 
-		input.Scan()           //stores user input
+		scan := input.Scan()           //stores user input
 		command = input.Text() // Stores user input
 
-		switch command {
-		case " ":
-			break
-		case "":
-			if err := input.Err(); err == nil && len(command) == 0 {
-				if err != io.ErrUnexpectedEOF {
-					// EOF support
-					extras.LeaveEOF()
-				}
-			}
+		eof := !scan && input.Err() == nil
+
+		switch eof {		// Check if command is exit or ^D
+		case true:
+			extras.LeaveEOF()
+		default:
+			extras.Leave(command)
 		}
 
-		extras.Leave(command) // Check if command is exit or ^D
 		//cmnds.SaveHistory(command) // Save the command to the history file
 
 		commands = strings.Split(command," ")
@@ -86,10 +81,9 @@ func main() {
 			commands = strings.Split(command," ")
 		}
 
-		//extras.Leave(commands[0]) // Check if command is exit or ^D(EOF)
 		command = commands[0]     // Set command to current command for easy checking
 
-		switch commands[0] {
+		switch command {
 		case "sudo":
 			switch commands[1] {
 			case "cd":
