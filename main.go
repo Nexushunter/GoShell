@@ -31,6 +31,7 @@ var (
 // Post-condition: Runs user commands/input if available
 //---------------------------------------------------------------------------\\
 func main() {
+
 	var command string  // To be user input
 	var err error       // Generic error
 	var cmd *os.Process // The process of the command
@@ -123,6 +124,7 @@ func main() {
 		}
 
 	}
+
 }
 
 //--------------------------Launch Process-----------------------------------\\
@@ -131,6 +133,7 @@ func main() {
 // 	Post-condition: Command is now running
 //---------------------------------------------------------------------------\\
 func execute(command []string) (p *os.Process, err error) {
+
 	switch command[0]{
 	case "":
 		return nil,nil
@@ -162,4 +165,5 @@ func execute(command []string) (p *os.Process, err error) {
 		}
 	}
 	return
+
 }
