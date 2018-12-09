@@ -85,42 +85,14 @@ func main() {
 		command = commands[0]     // Set command to current command for easy checking
 
 		switch command {
-		case "sudo":
-			switch commands[1] {
-			case "cd":
-				newDir, err = cmnds.CD(commands[2])
-				extras.PrintErr(err)
-			case "echo":
-				cmnds.Echo(commands[2])
-			default:
-				cmd, err = execute(commands)
-
-				if cmd != nil { // Active command/process
-					cmd.Wait() // Wait for command to finish
-					cmd.Kill() // Terminate the program after completion
-				}
-
-				extras.PrintErr(err)
-			}
 		case "cd":
-			newDir, err = cmnds.CD(commands[1])
+			newDir, err = cmnds.CD(commands[0])
 			extras.PrintErr(err)
 		case "echo":
-			cmnds.Echo(commands[1])
+			cmnds.Echo(commands[0])
 		default:
 			cmd, err = execute(commands)
-
-			if cmd != nil { // Active command/process
-				cmd.Wait() // Wait for command to finish
-				cmd.Kill() // Terminate the program after completion
-			}
-
-			switch err{
-			case nil:
-				break
-			default:
-				extras.PrintErr(err)
-			}
+			cleanupCommand(cmd,err)
 		}
 
 	}
@@ -166,4 +138,26 @@ func execute(command []string) (p *os.Process, err error) {
 	}
 	return
 
+}
+
+//--------------------------Clean up Process---------------------------------\\
+// 	Precondition: 	Command has been passed
+// 	Post-condition: Command is being tidied up. Waiting until it has finished
+//						and then killing the child process
+//---------------------------------------------------------------------------\\
+func cleanupCommand(cmd *os.Process ,err error) {
+	if cmd != nil && err == nil { // Active command/process
+		_,newErr := cmd.Wait() // Wait for command to finish
+		if newErr != nil{
+			extras.PrintErr(err)
+		}
+
+		newErr = cmd.Kill() // Terminate the program after completion
+		if  newErr != nil {
+			extras.PrintErr(err)
+		}
+
+	} else {
+		extras.PrintErr(err)
+	}
 }
