@@ -56,14 +56,13 @@ func CD(directory string) (fP string, err error) {
 }
 
 // func CD helper method
-func updateDir(fP string, err error) (filePath string, nah error) {
+func updateDir(fP string, err error) (string, error) {
 
 	if err != nil {
-		fP, _ = os.Getwd() // Doesn't change working directory
+		// Doesn't change working directory
 		return fP, err     // Reports the error
-
-	} else {
-		fP, _ = os.Getwd() // Get the new working directory
-		return fP, nil     // No error
 	}
+	
+	fP, _ = os.Getwd() // Get the new working directory
+	return fP, nil     // No error
 }
