@@ -1,0 +1,10 @@
+language: go
+go:
+  -1.12.x
+  -master
+
+script: go build ./...
+
+deloy:
+  on:
+    condition: $TRAVIS_GO_VERSION =~ ^1\.11

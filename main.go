@@ -90,6 +90,8 @@ func main() {
 			extras.PrintErr(err)
 		case "echo":
 			cmnds.Echo(commands[0])
+		case "pwd":
+			fmt.Println(cmnds.PWD())
 		default:
 			cmd, err = execute(commands)
 			cleanupCommand(cmd,err)
