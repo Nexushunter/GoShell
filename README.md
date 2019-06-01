@@ -1,4 +1,4 @@
-##GoShell [![Build Status](https://travis-ci.com/NexisHunter/GoShell.svg?branch=master)](https://travis-ci.com/NexisHunter/GoShell)
+##GoShell [![CircleCI](https://circleci.com/gh/NexisHunter/GoShell.svg?style=svg)](https://circleci.com/gh/NexisHunter/GoShell)
 
 The custom shell for my WIP Os. Please leave a comment on any bugs (or open a pull request) and I'll take into
 consideration of the edit. 
